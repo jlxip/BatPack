@@ -21,6 +21,9 @@ def gfp(path, nd='', f='', PS=False):	# Get full path
 		fp += nd + sep
 	if not f == '':
 		fp += f
+
+	if PS: fp = fp.replace(' ', '` ')
+
 	return fp
 
 
@@ -59,7 +62,6 @@ if __name__ == '__main__':
 	
 	print 'New directory? Leave in blank if not used.'
 	nd = raw_input('[?] ')
-	# TODO: Maybe encode name? (spaces)
 	print '\n'
 
 	print 'Select the file to be executed:'
