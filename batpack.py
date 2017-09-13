@@ -84,7 +84,13 @@ if __name__ == '__main__':
 		exit()
 	print '\n'
 
-	# TODO: MELT
+	print 'Melt the bat? (y/n)'
+	m = raw_input('[n] ').lower()
+	if m == '': m = 'n'
+	if not m == 'y' and not m == 'n':
+		print 'Invalid option.'
+		exit()
+	print '\n'
 
 	print 'Internal zip name. Leave in blank for an 8 bytes alphanumeric random string.'
 	zname = raw_input('[?] ')
@@ -104,7 +110,7 @@ if __name__ == '__main__':
 
 	print 'Encoding zip file in memory...'
 	b64 = base64.b64encode(open('tmp.zip', 'rb').read())
-	os.remove('tmp.zip')	
+	os.remove('tmp.zip')
 
 	print 'Generating bat file in memory...'
 	batcontent = '@echo %s>%s\r\n' % (b64, zname+'.txt')
@@ -120,6 +126,8 @@ if __name__ == '__main__':
 			batcontent += '\" '
 		batcontent += '\r\n'
 		# TODO: REMOVE DIRECTORY IF NECESSARY
+	if m == 'y':	# This has to be the last command
+		batcontent += '@del \"%0\"\r\n'
 
 	print 'Writing bat file...'
 	bat = open('packed.bat', 'w')
